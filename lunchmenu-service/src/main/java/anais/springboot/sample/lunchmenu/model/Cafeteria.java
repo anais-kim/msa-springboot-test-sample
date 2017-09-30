@@ -6,6 +6,8 @@ public class Cafeteria {
     private String name;
     private String location;
 
+    public Cafeteria() {}
+
     public Cafeteria(int id, String name, String location) {
         this.id = id;
         this.name = name;

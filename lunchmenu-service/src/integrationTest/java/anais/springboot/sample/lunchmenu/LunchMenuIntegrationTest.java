@@ -1,5 +1,6 @@
 package anais.springboot.sample.lunchmenu;
 
+import anais.springboot.sample.lunchmenu.json.GetCafeteria;
 import com.google.common.io.Resources;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
@@ -42,7 +43,7 @@ public class LunchMenuIntegrationTest extends AbstractIntegrationTest {
     @Before
     public void stubCafeteriaService() throws Exception {
         stubFor(get(urlEqualTo("/api/cafeterias/4")).atPriority(1)
-            .willReturn(ok()));
+            .willReturn(okJson(GetCafeteria.json)));
 
         stubFor(get(urlPathMatching("/api/cafeterias/.*")).atPriority(2)
             .willReturn(notFound()));
