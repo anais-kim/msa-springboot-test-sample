@@ -1,6 +1,5 @@
-package anais.springboot.sample.lunchmenu.modules.json;
+package anais.springboot.sample.cafeteria.support.matcher;
 
 public interface JsonType {
-
     JsonState getJsonState();
 }

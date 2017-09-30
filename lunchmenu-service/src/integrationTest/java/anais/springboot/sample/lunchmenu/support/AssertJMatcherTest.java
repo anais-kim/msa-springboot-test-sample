@@ -1,7 +1,7 @@
-package anais.springboot.sample.lunchmenu.modules;
+package anais.springboot.sample.lunchmenu.support;
 
-import anais.springboot.sample.lunchmenu.modules.json.JsonObjectFactory;
-import anais.springboot.sample.lunchmenu.modules.json.JsonType;
+import anais.springboot.sample.lunchmenu.support.matcher.JsonObjectFactory;
+import anais.springboot.sample.lunchmenu.support.matcher.JsonType;
 import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -9,13 +9,9 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-import static anais.springboot.sample.lunchmenu.modules.json.AssertJMatcher.assertThat;
+import static anais.springboot.sample.lunchmenu.support.matcher.AssertJMatcher.assertThat;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.when;
 
 public class AssertJMatcherTest {
 
@@ -27,6 +23,7 @@ public class AssertJMatcherTest {
     @BeforeClass
     public static void init() throws Exception {
         RestAssured.reset();
+        RestAssured.port = WIREMOCK_PORT;
     }
 
     @BeforeClass
@@ -40,34 +37,18 @@ public class AssertJMatcherTest {
 
     @Test
     public void testJsonObjectMatcher() throws Exception {
-        Path tempFile = createTempFile("{ \"firstName\": \"anais\"}");
-        JsonType expected = JsonObjectFactory.expected(tempFile);
+        JsonType expected = JsonObjectFactory.expected("{ \"firstName\": \"anais\"}");
 
-        Response res = given().
-                port(WIREMOCK_PORT).
-            when().
-                get("/object");
-
+        Response res =  when().get("/object");
         assertThat(res).statusCode(200).match(expected);
     }
 
     @Test
     public void testJsonArrayMatcher() throws Exception {
-        Path tempFile = createTempFile("[1,2]");
-        JsonType expected = JsonObjectFactory.expected(tempFile);
+        JsonType expected = JsonObjectFactory.expected("[1,2]");
 
-        Response res = given().
-            port(WIREMOCK_PORT).
-        when().
-            get("/array");
-
+        Response res = when().get("/array");
         assertThat(res).statusCode(200).match(expected);
-    }
-
-    private Path createTempFile(String content) throws IOException {
-        Path tempFile = Files.createTempFile("", "");
-        Files.write(tempFile, content.getBytes());
-        return tempFile;
     }
 
 }

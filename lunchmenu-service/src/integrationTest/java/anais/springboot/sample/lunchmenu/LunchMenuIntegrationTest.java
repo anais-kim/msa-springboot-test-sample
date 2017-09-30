@@ -5,7 +5,7 @@ import org.apache.http.HttpStatus;
 import org.junit.Before;
 import org.junit.Test;
 
-import static anais.springboot.sample.lunchmenu.modules.json.HamcrestMatcher.match;
+import static anais.springboot.sample.lunchmenu.support.matcher.HamcrestMatcher.match;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;

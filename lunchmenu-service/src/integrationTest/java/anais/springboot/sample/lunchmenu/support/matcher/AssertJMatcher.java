@@ -1,4 +1,4 @@
-package anais.springboot.sample.cafeteria.modules.json;
+package anais.springboot.sample.lunchmenu.support.matcher;
 
 import io.restassured.response.Response;
 import org.assertj.core.api.AbstractAssert;
@@ -42,6 +42,5 @@ public class AssertJMatcher extends AbstractAssert<AssertJMatcher, Response> {
             failWithMessage("");
         }
         return this;
-
     }
 }

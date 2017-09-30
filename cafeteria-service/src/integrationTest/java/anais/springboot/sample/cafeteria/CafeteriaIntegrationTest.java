@@ -4,7 +4,7 @@ import anais.springboot.sample.cafeteria.json.*;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import static anais.springboot.sample.cafeteria.modules.json.HamcrestMatcher.match;
+import static anais.springboot.sample.cafeteria.support.matcher.HamcrestMatcher.match;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 

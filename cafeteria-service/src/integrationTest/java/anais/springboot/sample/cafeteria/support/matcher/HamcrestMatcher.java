@@ -1,4 +1,4 @@
-package anais.springboot.sample.lunchmenu.modules.json;
+package anais.springboot.sample.cafeteria.support.matcher;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
@@ -44,7 +44,7 @@ public class HamcrestMatcher extends TypeSafeDiagnosingMatcher<String> {
         return new HamcrestMatcher(expected);
     }
 
-    public static HamcrestMatcher match(Path expectedPath){
+    public static HamcrestMatcher match(Path expectedPath) {
         JsonType expected = JsonObjectFactory.expected(expectedPath);
         return new HamcrestMatcher(expected);
     }

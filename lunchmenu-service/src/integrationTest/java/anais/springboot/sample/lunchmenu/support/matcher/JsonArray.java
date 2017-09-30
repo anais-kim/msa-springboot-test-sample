@@ -1,4 +1,4 @@
-package anais.springboot.sample.lunchmenu.modules.json;
+package anais.springboot.sample.lunchmenu.support.matcher;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

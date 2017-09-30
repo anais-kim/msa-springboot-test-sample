@@ -1,21 +1,15 @@
-package anais.springboot.sample.lunchmenu.modules;
+package anais.springboot.sample.cafeteria.support;
 
-import anais.springboot.sample.lunchmenu.modules.json.HamcrestMatcher;
-import anais.springboot.sample.lunchmenu.modules.json.JsonObjectFactory;
-import anais.springboot.sample.lunchmenu.modules.json.JsonType;
+import anais.springboot.sample.cafeteria.support.matcher.HamcrestMatcher;
+import anais.springboot.sample.cafeteria.support.matcher.JsonObjectFactory;
+import anais.springboot.sample.cafeteria.support.matcher.JsonType;
 import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
 import io.restassured.RestAssured;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-import static anais.springboot.sample.lunchmenu.modules.json.HamcrestMatcher.match;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static io.restassured.RestAssured.given;
 
 public class HamcrestMatcherTest {
@@ -42,8 +36,7 @@ public class HamcrestMatcherTest {
 
     @Test
     public void testJsonObjectMatcher() throws Exception {
-        Path tempFile = createTempFile("{ \"firstName\": \"anais\"}");
-        JsonType expected = JsonObjectFactory.expected(tempFile);
+        JsonType expected = JsonObjectFactory.expected("{ \"firstName\": \"anais\"}");
 
         given().
             port(WIREMOCK_PORT).
@@ -55,8 +48,7 @@ public class HamcrestMatcherTest {
 
     @Test
     public void testJsonArrayMatcher() throws Exception {
-        Path tempFile = createTempFile("[1,2]");
-        JsonType expected = JsonObjectFactory.expected(tempFile);
+        JsonType expected = JsonObjectFactory.expected("[1,2]");
 
         given().
             port(WIREMOCK_PORT).
@@ -66,9 +58,4 @@ public class HamcrestMatcherTest {
             body(HamcrestMatcher.match(expected));
     }
 
-    private Path createTempFile(String content) throws IOException {
-        Path tempFile = Files.createTempFile("", "");
-        Files.write(tempFile, content.getBytes());
-        return tempFile;
-    }
 }
