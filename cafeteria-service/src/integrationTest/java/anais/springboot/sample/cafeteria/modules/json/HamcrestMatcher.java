@@ -48,4 +48,9 @@ public class HamcrestMatcher extends TypeSafeDiagnosingMatcher<String> {
         JsonType expected = JsonObjectFactory.expected(expectedPath);
         return new HamcrestMatcher(expected);
     }
+
+    public static HamcrestMatcher match(String expectedContent) {
+        JsonType expected = JsonObjectFactory.expected(expectedContent);
+        return new HamcrestMatcher(expected);
+    }
 }

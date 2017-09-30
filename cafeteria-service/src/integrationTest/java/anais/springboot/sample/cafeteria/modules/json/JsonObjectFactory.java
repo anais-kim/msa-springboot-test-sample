@@ -22,6 +22,22 @@ public class JsonObjectFactory {
         throw new RuntimeException("Invalid Json Type...");
     }
 
+    public static JsonType expected(String text) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
+            Object json = objectMapper.readValue(text, Object.class);
+            if (json instanceof Map) {
+                return new JsonObject((Map) json, JsonState.EXPECTED);
+            } else if (json instanceof ArrayList) {
+                return new JsonArray((ArrayList) json, JsonState.EXPECTED);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        throw new RuntimeException("fail to parse json text: "+text);
+    }
+
     public static JsonType actual(String text) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -34,7 +50,7 @@ public class JsonObjectFactory {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        throw new RuntimeException("fail to parse json file: "+text);
+        throw new RuntimeException("fail to parse json text: "+text);
     }
 
     private static Object marshall(Path path){
