@@ -1,6 +1,6 @@
 package anais.springboot.sample.lunchmenu.json
 
-class AddLunchMenuRequestErrorCafeteria {
+class AddLunchMenuErrorCafeteriaRequest {
     public static String json = """
     {
       "id": 11,

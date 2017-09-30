@@ -1,12 +1,12 @@
 package anais.springboot.sample.lunchmenu.json
 
-class AddLunchMenuRequestErrorDuplicated {
+class GetLunchMenuSuccessResponse {
     public static String json = """
     {
       "id": 1,
-      "name": "Ramen",
-      "cafeteriaId": 4,
-      "calorie": 900
+      "name": "Pizza",
+      "cafeteriaId": 1,
+      "calorie": 1000
     }
     """
 }

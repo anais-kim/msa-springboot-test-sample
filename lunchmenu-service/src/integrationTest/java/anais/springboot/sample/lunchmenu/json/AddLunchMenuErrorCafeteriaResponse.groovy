@@ -1,6 +1,6 @@
 package anais.springboot.sample.lunchmenu.json
 
-class AddLunchMenuResponseErrorCafeteria {
+class AddLunchMenuErrorCafeteriaResponse {
     public static String json = """
     {
       "errorCode": "ERROR.LM404",

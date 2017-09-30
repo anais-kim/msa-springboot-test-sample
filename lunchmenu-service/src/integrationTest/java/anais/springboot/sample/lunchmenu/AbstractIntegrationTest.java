@@ -4,6 +4,10 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
+import io.restassured.http.ContentType;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.runner.RunWith;
@@ -38,7 +42,11 @@ public abstract class AbstractIntegrationTest {
         RestAssured.baseURI = SERVER_URL;
         RestAssured.port = this.port;
         RestAssured.basePath = BASE_PATH;
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+        RestAssured.requestSpecification = new RequestSpecBuilder()
+                .setContentType(ContentType.JSON)
+                .addFilter(new RequestLoggingFilter())
+                .addFilter(new ResponseLoggingFilter())
+                .build();
     }
 
 }

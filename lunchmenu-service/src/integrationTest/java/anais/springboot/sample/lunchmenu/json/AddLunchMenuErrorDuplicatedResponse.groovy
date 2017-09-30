@@ -1,6 +1,6 @@
 package anais.springboot.sample.lunchmenu.json
 
-class AddLunchMenuResponseErrorDuplicated {
+class AddLunchMenuErrorDuplicatedResponse {
     public static String json = """
     {
       "errorCode": "ERROR.LM400",

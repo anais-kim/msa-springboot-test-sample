@@ -1,6 +1,6 @@
 package anais.springboot.sample.lunchmenu.json
 
-class AddLunchMenuRequestSuccess {
+class AddLunchmenuSuccessResponse {
     public static String json = """
     {
       "id": 10,

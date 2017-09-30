@@ -1,7 +1,6 @@
 package anais.springboot.sample.cafeteria;
 
 import anais.springboot.sample.cafeteria.json.*;
-import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
@@ -32,7 +31,6 @@ public class CafeteriaIntegrationTest extends AbstractIntegrationTest {
     @Test
     public void whenAddCafeteria_thenReturnCafeteria() throws Exception {
         given()
-            .contentType(ContentType.JSON)
             .body(AddCafeteriaSuccessRequest.json)
         .when()
             .post("/cafeterias")
@@ -44,7 +42,6 @@ public class CafeteriaIntegrationTest extends AbstractIntegrationTest {
     @Test
     public void whenAddCafeteriaAlreadyExist_thernReturnError() throws Exception {
         given()
-            .contentType(ContentType.JSON)
             .body(AddCafeteriaErrorDuplicateRequest.json)
         .when()
             .post("/cafeterias")

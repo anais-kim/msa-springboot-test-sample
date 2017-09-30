@@ -1,7 +1,6 @@
 package anais.springboot.sample.lunchmenu;
 
 import anais.springboot.sample.lunchmenu.json.*;
-import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +15,7 @@ public class LunchMenuIntegrationTest extends AbstractIntegrationTest {
     @Before
     public void stubCafeteriaService() throws Exception {
         stubFor(get(urlEqualTo("/api/cafeterias/4")).atPriority(1)
-            .willReturn(okJson(GetCafeteria.json)));
+            .willReturn(okJson(GetCafeteriaSuccessResponse.json)));
 
         stubFor(get(urlPathMatching("/api/cafeterias/.*")).atPriority(2)
             .willReturn(notFound()));
@@ -28,7 +27,7 @@ public class LunchMenuIntegrationTest extends AbstractIntegrationTest {
             .get("/lunchMenus")
         .then()
             .statusCode(HttpStatus.SC_OK)
-            .body(match(GetAllLunchMenuResponseSuccess.json));
+            .body(match(GetAllLunchMenuSuccessResponse.json));
     }
 
     @Test
@@ -37,43 +36,40 @@ public class LunchMenuIntegrationTest extends AbstractIntegrationTest {
             .get("/lunchMenus/1")
         .then()
             .statusCode(HttpStatus.SC_OK)
-            .body(match(GetLunchMenuResponseSuccess.json));
+            .body(match(GetLunchMenuSuccessResponse.json));
     }
 
     @Test
     public void whenAddLunchMenu_thenReturnLunchMenu() throws Exception {
         given()
-            .contentType(ContentType.JSON)
-            .body(AddLunchMenuRequestSuccess.json)
+            .body(AddLunchMenuSuccessRequest.json)
         .when()
             .post("/lunchMenus")
         .then()
             .statusCode(HttpStatus.SC_CREATED)
-            .body(match(AddLunchmenuResponseSuccess.json));
+            .body(match(AddLunchmenuSuccessResponse.json));
     }
 
     @Test
     public void whenAddLunchMenuAlreadyExist_thernReturnError() throws Exception {
         given()
-            .contentType(ContentType.JSON)
-            .body(AddLunchMenuRequestErrorDuplicated.json)
+            .body(AddLunchMenuErrorDuplicatedRequest.json)
         .when()
             .post("/lunchMenus")
         .then()
             .statusCode(HttpStatus.SC_BAD_REQUEST)
-            .body(match(AddLunchMenuResponseErrorDuplicated.json));
+            .body(match(AddLunchMenuErrorDuplicatedResponse.json));
     }
 
     @Test
     public void whenAddLunchMenuWithCafeteriaNotExist_thenReturnError() throws Exception {
         given()
-            .contentType(ContentType.JSON)
-            .body(AddLunchMenuRequestErrorCafeteria.json)
+            .body(AddLunchMenuErrorCafeteriaRequest.json)
         .when()
             .post("/lunchMenus")
         .then()
             .statusCode(HttpStatus.SC_NOT_FOUND)
-            .body(match(AddLunchMenuResponseErrorCafeteria.json));
+            .body(match(AddLunchMenuErrorCafeteriaResponse.json));
     }
 
 }
